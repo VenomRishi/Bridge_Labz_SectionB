@@ -524,17 +524,18 @@ public class Utility {
 		}
 		return temp;
 	}
+
 	/**
 	 * Purpose: return min value from string
 	 * 
 	 * @param strArr input from user
-	 * @return	min from string
+	 * @return min from string
 	 */
 	public static String minValue(String[] strArr) {
 		String temp;
-		for(int i=0;i<strArr.length;i++) {
-			for(int j=i+1;j<strArr.length;j++) {
-				if(strArr[j].compareTo(strArr[i])<0) {
+		for (int i = 0; i < strArr.length; i++) {
+			for (int j = i + 1; j < strArr.length; j++) {
+				if (strArr[j].compareTo(strArr[i]) < 0) {
 					temp = strArr[j];
 					strArr[j] = strArr[i];
 					strArr[i] = temp;
@@ -548,24 +549,26 @@ public class Utility {
 	 * Purpose: return max value from string
 	 * 
 	 * @param strArr input from user
-	 * @return	max from string
+	 * @return max from string
 	 */
 	public static String maxValue(String[] strArr) {
 		String temp;
-		int strArrLength=strArr.length;
-		for(int i=0;i<strArr.length;i++) {
-			for(int j=i+1;j<strArr.length;j++) {
-				if(strArr[j].compareTo(strArr[i])<0) {
+		int strArrLength = strArr.length;
+		for (int i = 0; i < strArr.length; i++) {
+			for (int j = i + 1; j < strArr.length; j++) {
+				if (strArr[j].compareTo(strArr[i]) < 0) {
 					temp = strArr[j];
 					strArr[j] = strArr[i];
 					strArr[i] = temp;
 				}
 			}
 		}
-		return strArr[strArrLength-1];
+		return strArr[strArrLength - 1];
 	}
-	
+
 	/**
+	 * Purpose: to find collinear slope or not
+	 * 
 	 * @param x1
 	 * @param y1
 	 * @param x2
@@ -574,16 +577,37 @@ public class Utility {
 	 * @param y3
 	 * @return
 	 */
-	public static boolean checkCollinearUsingSlope(int x1,int y1,int x2,int y2,int x3,int y3) {
-		double slopeAB,slopeBC,slopeAC;
-		slopeAB=(y2-y1)/(x2-x1);
-		slopeBC=(y3-y2)/(x3-x2);
-		slopeAC=(y3-y1)/(x3-x1);
-		if(slopeAB==slopeBC) {
-			if(slopeAB==slopeAC) {
+	public static boolean checkCollinearUsingSlope(int x1, int y1, int x2, int y2, int x3, int y3) {
+		double slopeAB, slopeBC, slopeAC;
+		slopeAB = (y2 - y1) / (x2 - x1);
+		slopeBC = (y3 - y2) / (x3 - x2);
+		slopeAC = (y3 - y1) / (x3 - x1);
+		if (slopeAB == slopeBC) {
+			if (slopeAB == slopeAC) {
 				return true;
 			}
 		}
+		return false;
+	}
+
+	/**
+	 * Purpose: to find collinear triangle or not
+	 * 
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 * @param x3
+	 * @param y3
+	 * @return
+	 */
+	public static boolean checkCollinearUsingArea(int x1, int y1, int x2, int y2, int x3, int y3) {
+		int calculateTriangleCollinear;
+		calculateTriangleCollinear = x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2);
+
+		if (calculateTriangleCollinear == 0)
+			return true;
+
 		return false;
 	}
 

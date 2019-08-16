@@ -100,6 +100,29 @@ public class MathFunction {
 			System.out.println("Max String from array is: "+maxString);
 			break;
 		case 8:
+			System.out.println("Collinear slope and triangle");
+			System.out.println("Enter value of 3 point");
+			int x1,y1,x2,y2,x3,y3;
+			System.out.println("x1=");
+			x1=scanner.nextInt();
+			System.out.println("y1=");
+			y1=scanner.nextInt();
+			System.out.println("x2=");
+			x2=scanner.nextInt();
+			System.out.println("y2=");
+			y2=scanner.nextInt();
+			System.out.println("x3=");
+			x3=scanner.nextInt();
+			System.out.println("y3=");
+			y3=scanner.nextInt();
+			if(Utility.checkCollinearUsingSlope(x1, y1, x2, y2, x3, y3)) 
+				System.out.println("Points are collinear");
+			else 
+				System.out.println("Points are non -  collinear");
+			if(Utility.checkCollinearUsingArea(x1, y1, x2, y2, x3, y3)) 
+				System.out.println("Area of triangle are collinear");
+			else 
+				System.out.println("Area of triangle are not collinear");
 			
 		}
 
