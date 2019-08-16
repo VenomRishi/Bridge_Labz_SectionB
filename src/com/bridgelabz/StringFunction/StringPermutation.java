@@ -11,13 +11,15 @@ public class StringPermutation {
 		Scanner scanner=new Scanner(System.in);
 		System.out.println("Enter String");
 		str=scanner.next();
-		int strLength=str.length()-1;
-		//Permutation with recursion
-		System.out.println("Printing Recursive Permutation");
-		Utility.permutationRecursion(str, 0, strLength);
 		
 		System.out.println("Printing Iterative Permutation");
 		Utility.permutationIterative(str);
+		
+		System.out.println("Printing Recursive Permutation");
+		Utility.permutationRecursion(str, "");
+		
+		Utility.compareTwoPermutation();
+		
 		scanner.close();
 
 	}

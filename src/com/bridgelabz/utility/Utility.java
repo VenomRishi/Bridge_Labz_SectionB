@@ -10,7 +10,10 @@
 
 package com.bridgelabz.utility;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Utility {
 
@@ -241,107 +244,115 @@ public class Utility {
 		return 0;
 
 	}
-
+	
 	/**
-	 * Purpose:
+	 * Purpose: find permutation using iteration
 	 * 
 	 * @param str
-	 * @param startIndex
-	 * @param endIndex
-	 * @return
 	 */
-	public static void permutationRecursion(String str, int startIndex, int endIndex) {
-		if (startIndex == endIndex) {
-			System.out.print(str + " ");
+	static List<String> listPermutationIterative  = new ArrayList<String>();
+	public static void permutationIterative(String str) {
+		
+		// convert string to a character array (Since String is immutable)
+		char[] chars = str.toCharArray();
 
-		} else {
-			for (int i = startIndex; i <= endIndex; i++) {
-				str = swap(str, startIndex, i);
-				// System.out.println("x="+str);
-				permutationRecursion(str, startIndex + 1, endIndex);
-				str = swap(str, startIndex, i);
-				// System.out.println("y="+str);
+		// Weight index control array
+		int[] p = new int[str.length()];
+
+		// i, j represents upper and lower bound index resp. for swapping
+		int i = 1, j = 0;
+
+		// Print given string, as only its permutations will be printed later
+		System.out.print(str);
+		listPermutationIterative.add(str);
+		while (i < str.length()) {
+			if (p[i] < i) {
+				// if i is odd then j = p[i], otherwise j = 0
+				j = (i % 2) * p[i];
+
+				// swap(a[j], a[i])
+				swap(chars, i, j);
+
+				// Print current permutation
+				System.out.print(" " + String.valueOf(chars));
+				listPermutationIterative.add(String.valueOf(chars));
+				p[i]++; // increase index "weight" for i by one
+				i = 1; // reset index i to 1
+			}
+			// otherwise p[i] == i
+			else {
+				// reset p[i] to zero
+				p[i] = 0;
+
+				// set new index value for i (increase by one)
+				i++;
 			}
 		}
-
 	}
+
 
 	/**
-	 * @param str
+	 * Purpose: function to swap two characters in a character array
+	 * 
+	 * @param arr
 	 * @param i
 	 * @param j
-	 * @return
 	 */
-	public static String swap(String str, int i, int j) {
-		char temp;
-		char[] charArray = str.toCharArray();
-		temp = charArray[i];
-		charArray[i] = charArray[j];
-		charArray[j] = temp;
-		return String.valueOf(charArray);
-	}
-
-	public static void permutationIterative(String str) {
-		// sort the string in natural order
-		char[] s = str.toCharArray();
-		int n = str.length();
-		Arrays.sort(s);
-
-		while (true) {
-			// Print current permutation
-			System.out.print(String.valueOf(s) + " ");
-
-			/*
-			 * Below code will rearrange the string to next lexicographically ordered
-			 * permutation (if any) or return if we are already at highest possible
-			 * permutation
-			 */
-
-			// Find largest index i such that s[i-1] is less than s[i]
-			int i = n - 1;
-			while (s[i - 1] >= s[i]) {
-				// if i is first index of the string, that means we are
-				// already at last possible permutation
-				// (string is sorted in reverse order)
-				if (--i == 0)
-					return;
-			}
-
-			// find highest index j to the right of index i such that
-			// s[j] > s[i–1] (s[i..n-1] is sorted in reverse order)
-
-			int j = n - 1;
-			while (j > i && s[j] <= s[i - 1])
-				j--;
-
-			// Swap characters at index i-1 with index j
-			swap(s, i - 1, j);
-
-			// reverse the substring s[i..n-1] and return true
-			reverse(s, i, n - 1);
-		}
-	}
-
-	// Utility function to swap two characters in a character array
 	private static void swap(char[] arr, int i, int j) {
 		char c = arr[i];
 		arr[i] = arr[j];
 		arr[j] = c;
 	}
 
-	// Utility function to reverse a char array between specified indices
-	private static void reverse(char[] arr, int i, int j) {
-		// do till two end-points intersect
-		while (i < j) {
-			swap(arr, i++, j--);
+
+	/**
+	 * Purpose: find permutation using recursion
+	 * 
+	 * @param str input from user
+	 * @param ans empty string passed for computation
+	 */
+	static List<String> listPermutationRecursion=new ArrayList<String>();
+	public static void permutationRecursion(String str, String ans) {
+		
+		// If string is empty
+		if (str.length() == 0) {
+			System.out.print(ans + " ");
+			listPermutationRecursion.add(ans);
+			return;
 		}
+
+		for (int i = 0; i < str.length(); i++) {
+
+			// ith character of str
+			char ch = str.charAt(i);
+
+			// Rest of the string after excluding
+			// the ith character
+			String temp = str.substring(0, i) + str.substring(i + 1);
+
+			// Recurvise call
+			permutationRecursion(temp, ans + ch);
+		}
+
 	}
+	
+	public static void compareTwoPermutation() {
+		Collections.sort(listPermutationIterative);
+		//System.out.println(listPermutationIterative);
+		Collections.sort(listPermutationRecursion);
+		//System.out.println(listPermutationRecursion);
+		if(listPermutationIterative.equals(listPermutationRecursion)) 
+			System.out.println("Two permutation is equal");
+		else
+			System.out.println("Two permutation is not equal");
+	}
+
 	
 //	mathematical function
 	/**
 	 * Purpose: Method for printing Harmonic series
 	 * 
-	 * @param number 	input from user
+	 * @param number input from user
 	 */
 	public static void PrintHarmonic(int number) {
 		System.out.print("H=");
@@ -356,6 +367,7 @@ public class Utility {
 		}
 
 	}
+
 	/**
 	 * Purpose: To Perform Trigonometry operation on the basis of degree it will
 	 * give radians
@@ -386,7 +398,7 @@ public class Utility {
 	public static double findCos(double radiun) {
 		return Math.cos(radiun);
 	}
-	
+
 	/**
 	 * Purpose: To find binary
 	 * 
@@ -394,8 +406,8 @@ public class Utility {
 	 * @return returns cos of that radian
 	 */
 	public static String findBinary(int decimalNumber) {
-		int  mod;
-		
+		int mod;
+
 		String x = "";
 		if (decimalNumber > 255) {
 			System.out.println("Enter Number between 1 to 255");
@@ -410,30 +422,29 @@ public class Utility {
 		}
 		return x;
 	}
-	
+
 	/**
 	 * Purpose: Finding Square root using newton's method
 	 * 
-	 * @param c		input from user
-	 * @return		square root value of number using newton's method
+	 * @param c input from user
+	 * @return square root value of number using newton's method
 	 */
 	public static double findSquareRootUsingNewtonsMethod(int c, double epsilon) {
 		double t;
 		t = c;
 //		epsilon=1*(Math.pow(10, -15));
-		
 
 		while (Math.abs(t - c / t) > epsilon * t) {
 			t = (c / t + t) / 2.0;
 		}
 		return t;
 	}
-	
+
 	/**
 	 * Purpose: For finding prime number
 	 * 
-	 * @param number	input from user
-	 * @return	true or false depending upon prime number or not
+	 * @param number input from user
+	 * @return true or false depending upon prime number or not
 	 */
 	public static boolean isPrime(int number) {
 		if (number == 0 || number == 1) {
@@ -448,11 +459,12 @@ public class Utility {
 		}
 
 	}
+
 	/**
 	 * Purpose: Find Factorial
 	 * 
-	 * @param number	input taken from user
-	 * @return			fact	factorial of number
+	 * @param number input taken from user
+	 * @return fact factorial of number
 	 */
 	public static long CalculateFactorial(int number) {
 		int fact = 1;
@@ -462,6 +474,8 @@ public class Utility {
 		return fact;
 	}
 
-
+	public static double futureValue() {
+		return 0;
+	}
 
 }
