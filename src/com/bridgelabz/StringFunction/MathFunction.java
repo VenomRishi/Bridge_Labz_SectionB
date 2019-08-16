@@ -70,9 +70,37 @@ public class MathFunction {
 			break;
 		case 5:
 			System.out.println("Calculate present and future value");
-			
+			System.out.println("Enter amount");
+			int camount=scanner.nextInt();
+			System.out.println("Enter interest rate");
+			int r=scanner.nextInt();
+			System.out.println("Enter Year:");
+			int t=scanner.nextInt();
+			t=t*12;
+			double futureValue=Utility.futureValue(camount, r, t);
+			double presentValue=Utility.presentValue(camount, r, t);
+			System.out.println("Future values is: "+futureValue);
+			System.out.println("Present values is: "+presentValue);;
 			break;
-
+		case 6:
+			System.out.println("Printing min and max from integer array");
+			//min max from integer array
+			int [] numberArray= {1,6,4,2,5};
+			int min=Utility.minValue(numberArray);
+			System.out.println("Min from array is: "+min);
+			int max=Utility.maxValue(numberArray);
+			System.out.println("Max from array is: "+max);
+			break;
+		case 7:
+			System.out.println("Printing min and max from string array");
+			String[] strArr= {"Mustakim","Vicky","Wasim","Rishikesh"};
+			String minString=Utility.minValue(strArr);
+			String maxString=Utility.maxValue(strArr);
+			System.out.println("Min String from array is: "+minString);
+			System.out.println("Max String from array is: "+maxString);
+			break;
+		case 8:
+			
 		}
 
 		scanner.close();

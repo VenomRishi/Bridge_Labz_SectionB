@@ -244,15 +244,16 @@ public class Utility {
 		return 0;
 
 	}
-	
+
 	/**
 	 * Purpose: find permutation using iteration
 	 * 
 	 * @param str
 	 */
-	static List<String> listPermutationIterative  = new ArrayList<String>();
+	static List<String> listPermutationIterative = new ArrayList<String>();
+
 	public static void permutationIterative(String str) {
-		
+
 		// convert string to a character array (Since String is immutable)
 		char[] chars = str.toCharArray();
 
@@ -290,7 +291,6 @@ public class Utility {
 		}
 	}
 
-
 	/**
 	 * Purpose: function to swap two characters in a character array
 	 * 
@@ -304,16 +304,16 @@ public class Utility {
 		arr[j] = c;
 	}
 
-
 	/**
 	 * Purpose: find permutation using recursion
 	 * 
 	 * @param str input from user
 	 * @param ans empty string passed for computation
 	 */
-	static List<String> listPermutationRecursion=new ArrayList<String>();
+	static List<String> listPermutationRecursion = new ArrayList<String>();
+
 	public static void permutationRecursion(String str, String ans) {
-		
+
 		// If string is empty
 		if (str.length() == 0) {
 			System.out.print(ans + " ");
@@ -335,19 +335,18 @@ public class Utility {
 		}
 
 	}
-	
+
 	public static void compareTwoPermutation() {
 		Collections.sort(listPermutationIterative);
-		//System.out.println(listPermutationIterative);
+		// System.out.println(listPermutationIterative);
 		Collections.sort(listPermutationRecursion);
-		//System.out.println(listPermutationRecursion);
-		if(listPermutationIterative.equals(listPermutationRecursion)) 
+		// System.out.println(listPermutationRecursion);
+		if (listPermutationIterative.equals(listPermutationRecursion))
 			System.out.println("Two permutation is equal");
 		else
 			System.out.println("Two permutation is not equal");
 	}
 
-	
 //	mathematical function
 	/**
 	 * Purpose: Method for printing Harmonic series
@@ -474,8 +473,118 @@ public class Utility {
 		return fact;
 	}
 
-	public static double futureValue() {
-		return 0;
+	/**
+	 * Purpose: compute future value depend upon cash, interest rate and tenure
+	 * 
+	 * @param c input from user
+	 * @param r input from user
+	 * @param t input from user
+	 * @return return future value
+	 */
+	public static double futureValue(int c, int r, int t) {
+		return c * Math.pow(1 + r, t);
+	}
+
+	/**
+	 * Purpose: compute present value depend upon cash, interest rate and tenure
+	 * 
+	 * @param c input from user
+	 * @param r input from user
+	 * @param t input from user
+	 * @return return present value
+	 */
+	public static double presentValue(int c, int r, int t) {
+		return Math.pow(c / (1 + r), t);
+	}
+
+	/**
+	 * Purpose: to find min value from array
+	 * 
+	 * @param numArr array from user
+	 * @return min value
+	 */
+	public static int minValue(int[] numArr) {
+		int temp = numArr[0] < numArr[1] ? numArr[0] : numArr[1];
+		for (int i = 2; i < numArr.length; i++) {
+			temp = temp < numArr[i] ? temp : numArr[i];
+		}
+		return temp;
+	}
+
+	/**
+	 * Purpose: to find max value from array
+	 * 
+	 * @param numArr array from user
+	 * @return max value
+	 */
+	public static int maxValue(int[] numArr) {
+		int temp = numArr[0] > numArr[1] ? numArr[0] : numArr[1];
+		for (int i = 2; i < numArr.length; i++) {
+			temp = temp > numArr[i] ? temp : numArr[i];
+		}
+		return temp;
+	}
+	/**
+	 * Purpose: return min value from string
+	 * 
+	 * @param strArr input from user
+	 * @return	min from string
+	 */
+	public static String minValue(String[] strArr) {
+		String temp;
+		for(int i=0;i<strArr.length;i++) {
+			for(int j=i+1;j<strArr.length;j++) {
+				if(strArr[j].compareTo(strArr[i])<0) {
+					temp = strArr[j];
+					strArr[j] = strArr[i];
+					strArr[i] = temp;
+				}
+			}
+		}
+		return strArr[0];
+	}
+
+	/**
+	 * Purpose: return max value from string
+	 * 
+	 * @param strArr input from user
+	 * @return	max from string
+	 */
+	public static String maxValue(String[] strArr) {
+		String temp;
+		int strArrLength=strArr.length;
+		for(int i=0;i<strArr.length;i++) {
+			for(int j=i+1;j<strArr.length;j++) {
+				if(strArr[j].compareTo(strArr[i])<0) {
+					temp = strArr[j];
+					strArr[j] = strArr[i];
+					strArr[i] = temp;
+				}
+			}
+		}
+		return strArr[strArrLength-1];
+	}
+	
+	/**
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 * @param x3
+	 * @param y3
+	 * @return
+	 */
+	public static boolean checkCollinearUsingSlope(int x1,int y1,int x2,int y2,int x3,int y3) {
+		double slopeAB,slopeBC,slopeAC;
+		slopeAB=(y2-y1)/(x2-x1);
+		slopeBC=(y3-y2)/(x3-x2);
+		slopeAC=(y3-y1)/(x3-x1);
+		if(slopeAB==slopeBC) {
+			if(slopeAB==slopeAC) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
